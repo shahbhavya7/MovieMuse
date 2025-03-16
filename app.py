@@ -4,8 +4,11 @@ import requests
 
 import time
 
-import time
+import gdown
 
+url = "https://drive.google.com/uc?id=1llkfzG1rJFERbzNjKEw76gLyvEKiL79_"
+output = "similarity.pkl"
+gdown.download(url, output, quiet=False)
 
 def fetch_poster(movie_id, retries=3):
     url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=687ac8c8bd996400610e373b47ca156f&language=en-US"
