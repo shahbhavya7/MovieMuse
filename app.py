@@ -2,13 +2,32 @@ import pickle
 import streamlit as st
 import requests
 
-def fetch_poster(movie_id):
-    url = "https://api.themoviedb.org/3/movie/{}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US".format(movie_id)
-    data = requests.get(url)
-    data = data.json()
-    poster_path = data['poster_path']
-    full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
-    return full_path
+import time
+
+import time
+
+
+def fetch_poster(movie_id, retries=3):
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=687ac8c8bd996400610e373b47ca156f&language=en-US"
+    headers = {'User-Agent': 'Mozilla/5.0'}
+
+    for attempt in range(retries):
+        try:
+            response = requests.get(url, headers=headers, timeout=5)
+            response.raise_for_status()
+            data = response.json()
+
+            if 'poster_path' in data and data['poster_path']:
+                return "https://image.tmdb.org/t/p/w500/" + data['poster_path']
+
+            return "https://via.placeholder.com/500x750?text=No+Image"
+
+        except requests.exceptions.RequestException as e:
+            print(f"Attempt {attempt + 1} failed: {e}")
+            time.sleep(1)  # Wait before retrying
+
+    return "https://via.placeholder.com/500x750?text=Error"
+
 
 def recommend(movie):
     index = movies[movies['title'] == movie].index[0]
@@ -36,7 +55,7 @@ selected_movie = st.selectbox(
 
 if st.button('Show Recommendation'):
     recommended_movie_names,recommended_movie_posters = recommend(selected_movie)
-    col1, col2, col3, col4, col5 = st.beta_columns(5)
+    col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         st.text(recommended_movie_names[0])
         st.image(recommended_movie_posters[0])
