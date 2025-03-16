@@ -1,7 +1,6 @@
 import pickle
 import streamlit as st
 import requests
-import bz2
 
 import time
 
@@ -43,15 +42,10 @@ def recommend(movie):
 
     return recommended_movie_name,recommended_movie_poster
 
-def load_compressed_pickle(filename):
-    with bz2.BZ2File(filename, "rb") as f:
-        return pickle.load(f)
-
 
 st.header('Movie Recommender System')
 movies = pickle.load(open('movie_list.pkl','rb'))
-similarity = load_compressed_pickle("similarity.pkl.bz2")
-
+similarity = pickle.load(open('similarity.pkl','rb'))
 
 movie_list = movies['title'].values
 selected_movie = st.selectbox(
