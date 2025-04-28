@@ -1,6 +1,6 @@
-# 🎬 Movie Recommendation System
+# 🎬 MovieMuse
 
-Welcome to the **Movie Recommendation System**! This project leverages the **TMDB database** to offer personalized movie recommendations using **Exploratory Data Analysis (EDA)** and a **Content-Based Filtering approach** powered by **Cosine Similarity**. The system is deployed as a **Streamlit web app** for an intuitive and interactive experience.
+Welcome to the **MovieMuse**! This project leverages the **TMDB database** to offer personalized movie recommendations using **Exploratory Data Analysis (EDA)** and a **Content-Based Filtering approach** powered by **Cosine Similarity**. The system is deployed as a **Streamlit web app** for an intuitive and interactive experience.
 
 https://shahbhavya7-movie-recommender-system-app-juflfk.streamlit.app/
 
